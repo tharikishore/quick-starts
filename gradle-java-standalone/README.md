@@ -1,1 +1,1 @@
-hello
+# {{{gradle-java-standalone}}}
