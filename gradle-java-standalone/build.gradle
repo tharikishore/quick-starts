@@ -12,7 +12,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 // This property specifies the classname whose main mthod will be invoked to execute the 
 // current application.
-mainClassName = "com.test.Test"
+mainClassName = "com.adigo.converters.DOCtoPDFConverter"
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -20,12 +20,40 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+/**
+ * This task copies all the dependencies into the folder $buildDir/dependencies
+ * @param  Copy [description]
+ * @return      [description]
+ */
+task copyToLib(type: Copy, description: 'Copies all the runtime dependencies to a separate folder') {
+    into "$buildDir/dependencies"
+    from configurations.runtime
+}
+
+/**
+ * We use this extension to be able to pass arguments to the main
+ */
+run {
+    if(project.hasProperty('args')){
+        args project.args.split('\\s+')
+    }
+}
+
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
     compile 'org.slf4j:slf4j-api:1.7.13'
-
+    compile 'org.apache.poi:poi:3.13'
+    compile 'org.apache.poi:poi-ooxml:3.13'
+    compile 'fr.opensagres.xdocreport:org.apache.poi.xwpf.converter.xhtml:1.0.5'
+    compile 'org.apache.poi:poi-scratchpad:3.13'
+    compile 'org.apache.pdfbox:pdfbox:1.8.11'
+    compile 'net.sf.cssbox:cssbox:4.10'
+    compile 'com.itextpdf:itextpdf:5.5.8'
+    compile 'com.itextpdf.tool:xmlworker:5.5.8'
+    compile 'org.docx4j:docx4j:3.2.2'
+    compile 'net.sf.jtidy:jtidy:r938'
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
