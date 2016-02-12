@@ -1,0 +1,7 @@
+import com.quick.SourcesFile
+
+model {
+	SourcesFile sourcesFile
+}
+
+json g.render(sourcesFile)
