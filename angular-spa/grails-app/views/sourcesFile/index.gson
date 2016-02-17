@@ -1,0 +1,8 @@
+import com.quick.SourcesFile
+
+model {
+	Iterable<SourcesFile> sourcesFileList
+}
+
+json tmpl.sourcesFile(sourcesFileList ?: [])
+
